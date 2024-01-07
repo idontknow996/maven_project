@@ -45,25 +45,20 @@ pipeline {
 
       }
     }
-    stage('deployment')
-    {
-        input
-        {
-            message "select the version to deplay"
-            ok "version selected"
-    parameters
-    {
-        choice(name:"NEWAPP",choices:["EC2","ONPrem","EKS"])
-    }
+    stage('deployment') {
+      input {
+        message "select the version to deplay"
+        ok "version selected"
+        parameters {
+          choice(name: "NEWAPP", choices: ["EC2", "ONPrem", "EKS"])
         }
-        steps
-        {
-            script
-            {
-                echo "Deploy the Code"
-                echo "The deployment platform to ${NEWAPP}"
-            }
+      }
+      steps {
+        script {
+          echo "Deploy the Code"
+          echo "The deployment platform to ${NEWAPP}"
         }
+      }
     }
   }
 }
