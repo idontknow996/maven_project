@@ -35,15 +35,15 @@ pipeline {
         }
       }
     }
-  }
 
-  stage('package') {
-    steps {
-      script {
-        echo "Packaging"
-        echo "packing the app version ${params.APP}"
+    stage('package') {
+      steps {
+        script {
+          echo "Packaging"
+          echo "packing the app version ${params.APP}"
+        }
+
       }
-
     }
   }
 }
