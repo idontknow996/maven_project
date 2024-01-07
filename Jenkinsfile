@@ -1,7 +1,7 @@
 pipeline 
 {
     agent any
-    paramaters
+    parameters
     {
         string(name: 'ENV', defaultValue: 'DEV', description: 'ENV to compile')
         booleanParam(name: 'executeTest', defaultValue: true, description: 'app version')
