@@ -53,7 +53,7 @@ pipeline {
             ok "version selected"
     parameters
     {
-        choice(name:"NEWAPP",choices:("EC2","ONPrem","EKS"))
+        choice(name:"NEWAPP",choices:["EC2","ONPrem","EKS"])
     }
         }
         steps
