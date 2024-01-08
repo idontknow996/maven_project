@@ -1,67 +1,60 @@
 pipeline {
-  agent any
-  parameters {
-    string(name: 'ENV', defaultValue: 'DEV', description: 'ENV to compile')
-    booleanParam(name: 'executeTest', defaultValue: true, description: 'app version')
-    choice(name: 'APP', choices: ['1.0', '1.1', '1.2'], description: 'Pick something')
-  }
-
-  stages {
-    stage('Compile') {
-      steps {
-        // Get some code from a GitHub repository
-        //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-        //echo "Hello Jenkins"
-        // Run Maven on a Unix agent.
-        //sh "mvn -Dmaven.test.failure.ignore=true clean package"
-
-        // To run Maven on a Windows agent, use
-        // bat "mvn -Dmaven.test.failure.ignore=true clean package"
-        script {
-          echo "Compile code"
-          echo "Compiling in ${params.ENV} environment"
-          sh "mvn compile"
-        }
-      }
-    }
-    stage('Test') {
-      when {
-        expression {
-          params.executeTest == true
-        }
-      }
-      steps {
-        script {
-          echo "Testing"
-          sh "mvn test"
-        }
-      }
+    agent any
+    parameters {
+        string(name: 'ENV', defaultValue: 'DEV', description: 'ENV to compile')
+        booleanParam(name: 'executeTest', defaultValue: true, description: 'app version')
+        choice(name: 'APP', choices: ['1.0', '1.1', '1.2'], description: 'Pick something')
     }
 
-    stage('package') {
-      steps {
-        script {
-          echo "Packaging"
-          echo "packing the app version ${params.APP}"
-          sh "mvn package"
+    stages {
+        stage('Compile') {
+            steps {
+                script {
+                    echo "Compile code"
+                    echo "Compiling in ${params.ENV} environment"
+                    sh "mvn compile"
+                }
+            }
         }
 
-      }
-    }
-    stage('deployment') {
-      input {
-        message "select the version to deplay"
-        ok "version selected"
-        parameters {
-          choice(name: "NEWAPP", choices: ["EC2", "ONPrem", "EKS"])
+        stage('Test') {
+            when {
+                expression {
+                    params.executeTest == true
+                }
+            }
+            steps {
+                script {
+                    echo "Testing"
+                    sh "mvn test"
+                }
+            }
         }
-      }
-      steps {
-        script {
-          echo "Deploy the Code"
-          echo "The deployment platform to ${NEWAPP}"
+
+        stage('Package') {
+            steps {
+                script {
+                    echo "Packaging"
+                    echo "Packing the app version ${params.APP}"
+                    sh "mvn package"
+                }
+            }
         }
-      }
+
+        stage('Deployment') {
+            input {
+                message "Select the version to deploy"
+                ok "Version selected"
+                parameters {
+                    choice(name: "NEWAPP", choices: ["EC2", "ONPrem", "EKS"])
+                }
+            }
+            steps {
+                script {
+                    echo "Deploy the Code"
+                    echo "The deployment platform is ${params.NEWAPP}"
+                }
+            }
+        }
     }
-  }
 }
