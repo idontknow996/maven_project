@@ -3,6 +3,7 @@ pipeline {
     tools
     {
       jdk "java"
+      maven "maven"
     }
     parameters {
         string(name: 'ENV', defaultValue: 'DEV', description: 'ENV to compile')
