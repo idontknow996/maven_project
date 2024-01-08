@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools
     {
-      java "java"
+      jdk "java"
     }
     parameters {
         string(name: 'ENV', defaultValue: 'DEV', description: 'ENV to compile')
