@@ -11,6 +11,7 @@ pipeline {
         stage('Compile') {
             steps {
                 script {
+                    sh "mvn clean install"
                     echo "Compile code"
                     echo "Compiling in ${params.ENV} environment"
                     sh "mvn compile"
