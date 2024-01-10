@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploy the Code"
-                    echo "The deployment platform is ${params.NEWAPP}"
+                    echo "The deployment platform is ${NEWAPP}"
                 }
             }
         }
