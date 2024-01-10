@@ -264,7 +264,7 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
+        <!-- <profile>
             <id>maven3</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -377,7 +377,7 @@
                 </plugins>
             </build>
         </profile>
-        <!-- <profile>
+        <profile> -->
             <id>maven2</id>
             <build>
                 <plugins>
@@ -413,7 +413,7 @@
                             </dependency>
                         </dependencies>
                     </plugin>
-                </plugins> -->
+                </plugins>
             </build>
             <reporting>
                 <plugins>
