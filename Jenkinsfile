@@ -39,7 +39,7 @@ pipeline {
                     echo "Packaging"
                     echo "Packing the app version ${params.APP}"
                     sh "mvn --version"
-                    sh "mvn clean package"
+                    sh "mvn package"
                 }
             }
         }
